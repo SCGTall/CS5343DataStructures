@@ -1,0 +1,223 @@
+binary tree
+3 orders:
+pre order:	 node, left child, right child
+post order:	 left child, right child, node
+in order:	left child, node, right child
+(order of node)
+
+preorder traverse
+Main()
+{
+preTrav(root);
+}
+Void preTrav(Node tmp)
+{
+if (tmp == null) return;
+print tmp.val;
+preTrav(tmp.left);
+preTrav(tmp.right);
+}
+postTrav and inTrav
+
+class Node
+{
+	T element;
+	Node left child node;
+	Node right child node;
+}
+
+binary search tree: left < right
+
+preTrav(Node tmp)
+{
+	Stack stack = new Stack;
+	stack.push(tmp);
+	while (stack.size() > 0)
+	{
+		Node node = pop();
+		stack.push(node);
+		stack.push(node.left);
+		stack.push(node.right);
+	}
+}
+
+Count the number of nodes in a binary tree
+Void main()
+{
+	int num = count(root);
+}
+Int count(Node tmp)
+{
+	if (tmp == null) return 0;
+	return 1 + count(tmp.left) + count(tmp.right);
+}
+
+Count the number of leaf nodes
+Void main()
+{
+	int num = lCount(root);
+}
+Int lCount(Node tmp)
+{
+	if (tmp == null) return 0;
+	if ((tmp.left == null) && (tmp.right == null)) return 1;
+	return lCount(tmp.left) + lCount(tmp.right);
+}
+
+Given a binary tree and a node, return the sibling node
+Void main()
+{
+	Node sibling = sib(root, n.val);
+}
+Node sib(Node tmp, int v)
+{
+	if (tmp == null) return null;
+	if (tmp.val == v) return null;
+	// find val == v
+	if ((tmp.left != null) && (tmp.left.val == v)) return tmp.right;
+	if ((tmp.right != null) && (tmp.right.val == v)) return tmp.left;
+	// not find and find next level
+	// #1
+	Node t = sib(tmp.left, v);
+	if (t == null) t = sib(tmp.right, v);
+	return t
+	/** #2
+	if (sib(tmp.left, v) != null)
+	{
+		return sib(tmp.left, v);
+	}
+	else if (sib(tmp.right, v) != null)
+	{
+		return sib(tmp.right, v);
+	}
+	else
+	{
+		return null;
+	}
+	*/
+}
+
+Given a binary tree, return the parent of a node
+Void main()
+{
+	Node par(root, v);
+}
+Node par(Node tmp, int v)
+{
+	if (tmp == null) return null;
+	if (tmp.val == v) return null;
+	// find val
+	if ((tmp.left != null) && (tmp.left.val == v)) return tmp;
+	if ((tmp.right != null) && (tmp.right.val == v)) return tmp;
+	// not find and go to next level
+	Node t = par(tmp.left, v);
+	if (t == null) t = par(tmp.right, v);
+	return t;
+}
+
+Given a binary tree, find the largest value. Assume at least one node is there.
+Void main()
+{
+	int l = largest(root);
+}
+Int largest(Node tmp)
+{
+	int l = tmp.val;
+	if ((tmp.left != null) && (l < largest(tmp.left))) l = largest(tmp.left);
+	if ((tmp.right != null) && (l < largest(tmp.right)) l = largest(tmp.right);
+	return max;
+}
+Int largest(Node tmp)// t version
+{
+	if ((tmp.left == null) && (tmp.right == null)) return tmp.val;
+	l = tmp.val;
+	if (tmp.left != null) l = max(l, largest(tmp.left));
+	if (tmp.right != null) l = max(l, largest(tmp.right));
+	return l;
+}
+
+Given a binary tree, your algorithm makes it into its mirror image
+Void main()
+{
+	mirror(root);
+}
+Void mirror(Node tmp)
+{
+	if (tmp == null) return;
+	swap(mirror(tmp.left), mirror(tmp.right));
+}
+
+array-based binary tree
+first number is the count of the tree
+rank(root) == 1
+rank(left)
+rank(right)
+
+BFS traverse:
+Enqueue root
+while Q not empty
+	Dequeue
+	Enqueue all children
+End while
+
+Insert a new node to Binary Search Tree(BST)
+Void main()
+{
+	insertBST(root, val);
+}
+Void insertBST(Node node, int val)
+{
+	while(true)
+	{
+		if (node.val < val)
+		{
+			if (node.right == null)
+			{
+				node.right = new Node(val);
+				return;
+			}
+			node = node.right;
+		}
+		if (node.val > val)
+		{
+			if (node.left == null)
+			{
+				node.left = new Node(val);
+				return;
+			}
+			node = node.left;
+		}
+	}
+}
+Void insertBST(Node node, int val)// recursive
+{
+	if (node.val < val)
+	{
+		if (node.right == null)
+		{
+			node.right = new Node(val);
+			return;
+		}
+		return insertBST(node.right, int val);
+	}
+	if (node.val > val)
+	{
+		if (node.left == null)
+		{
+			node.left = new Node(val);
+			return;
+		}
+		return insertBST(node.left, int val);
+	}
+}
+
+Delete node from BST
+Void main()
+{
+	deleteBST(root, val);
+}
+Void deleteBST
+
+Bubble Sort
+
+Selection Sort - Array-based

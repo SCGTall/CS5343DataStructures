@@ -1,0 +1,256 @@
+AVL Trees: left and right subtree have the same height(|left| - |right| <= |1|)
+Adelson-Velskii-Landis
+depth:O(logN)
+rotation
+root.height = 0
+
+Insert:
+
+			4
+	2				6
+1		3		5		7
+			  4.5
+			    4.8
+				
+			4
+	2				6
+1		3		5		7
+			  4.8
+			 4.5
+			 
+			4
+	2				6
+1		3		4.8		7
+			  4.5  5
+
+
+			4
+	2				6
+1		3		4.8		7
+			  4.5  5
+			  		5.5
+					
+			4
+	2				6
+1		3		5		7
+			 4.8 5.5
+			4.5
+			
+			4
+	2				5
+1		3		4.8		6
+			  4.5    5.5  7
+
+			4
+	2				5
+1		3		4.8		6
+			  4.5    5.5  7
+			  		  5.7
+
+			5
+	4				6
+  2		4.8		5.5		7
+1	3  4.5	       5.7
+			  		  
+			14
+	7				17
+  4	  12				53
+	 11	13
+      11.5
+
+			14
+	7				17
+  4	  11				53
+   11.5	12
+          13
+
+			14
+	11				17
+  7	  12				53
+4  11.5	13
+
+
+class Node
+{
+	int value;
+	Node left;
+	Node right;
+	Node parent;
+	int height;
+}
+
+Void main()
+{
+	insertALV(root, new);
+}
+
+Void insertALV(Node root, Node n)
+{
+	n = insertBST(root, n);
+	flag = false;
+	par1 = n.parent;
+	while ((par1 != null)||(flag = true))
+	{
+		leftHTt = getLeftHT(par1);
+		rightHT = getRightHT(par1);
+		if (abs(leftHT - rightHT) == 2)
+		{
+			alvBlance(par1, leftHT, rightHT);
+			flag = true;// turn true when rotate finish
+		}
+		updateHT(par1, leftHT, rightHT);
+		par1 = par1.parent;
+	}
+}
+
+Void alvBalance(Node n1, Node n2, Node n3)
+{
+	if (n2 == n1.left)
+	{
+		if (n3 == n2.left)
+		{
+			balanceLeftSLine(n1, n2, n3);
+		}
+		else
+		{
+			balanceLeftZigzag(n1, n2, n3);// do two rotate in this
+		}
+	}
+	else
+	{
+		if (n3 == n2.left)
+		{
+			balanceRightSLine(n1, n2, n3);
+		}
+		else
+		{
+			balanceRightZigzag(n1, n2, n3);
+		}
+	}
+}
+
+balanceSLine:
+n1
+	n2
+		n3
+to
+	n2
+n1		n3
+balanceZipzag:
+	n1
+		n2
+	n3
+to
+	n1
+		n2
+			n3
+
+Delete:
+	  (11)
+	7		14
+  4	  8	  12  17
+  		   13
+
+	   (8)
+	7		14
+  4	  	  12  17
+  		   13
+
+	   	7
+	4		14
+	  	  12  17
+  		   13
+
+	   	7
+	4		12
+	  	      14
+  		   	 13	17
+
+	   	12
+	7		14
+  4	  	  13  17
+
+
+		(13)
+	10		24
+  7	 	  20  30
+  		 15	 25 36
+
+		10
+	7		24
+	 	  20  30
+  		 15	 25 36
+
+		 10
+	7		24
+	 	  20  30
+  		 15	 25 36
+
+		 24
+	10		30
+  7	  20  25  36
+	 15
+
+	 			m
+		e				(p)->suc
+	c		j		n		s
+  b	  d	  h	  k		  o	  r	  u
+ a		 g i   j			 t
+ 		f
+
+	 			m
+		e				r
+	c		j		n		s
+  b	  d	  h	  k		  o	  	  u
+ a		 g i   l			 t
+ 		f
+
+	 			m
+		e				r
+	c		j		n		s
+  b	  d	  h	  k		  o	  	  t
+ a		 g i   l			   u
+ 		f
+
+	 			m
+		e				r
+	c		j		n		t
+  b	  d	  h	  k		  o	   s  u
+ a		 g i   l
+ 		f
+
+	 			m
+		j				r
+	e		k		n		t
+  c	   h	  l		  o	   s  u
+ b d  g i
+a 	 f		
+
+	 			j
+		e				m
+	c		h		k		 r
+  b	   d   g  i		  l	   n    t
+ a     	  f					o  s u
+
+				50
+		30				80
+	20		40		60		(90)
+  10  25  35  45	  70
+  			 42
+			 
+				50
+		30				80
+	20		40		70
+  10  25  35  45  60  
+  			 42
+			 
+				50
+		40				70
+	30		45		60		80
+  20  35  42   
+ 10  25 
+
+				40
+		30				50
+	20		35		45		70
+  10  25 	  	   42	  60  80
