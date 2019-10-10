@@ -1,0 +1,306 @@
+multi-way tree (M-way tree, B trees)
+nodes in multi-way tree are meade up of key fields
+each node has m children and m-1 key fields
+keys in each node are in ascending order
+the keys in the first i children are smaller than the ith key
+the keys in the last m0i children are larger than the ith key
+n order B-tree's node (not root) has at least floor(n) - 1 children
+
+insert
+[70, 75, 83, 77, 71, 73, 84, 86, 87, 85]
+
+			[70, 75, 83]
+			
+			[70, 75, 83]
+	[]	[71, 73]	[77]	[84, 86, 87]
+
+			[70, 75, 83]
+	[]	[71, 73]	[77]	[84, 86, 87]
+								[85]
+
+delete
+delete and use the successor instead
+			[70, 75, (83)]
+	[]	[71, 73]	[77]	[84, 86, 87]
+							   [85]
+
+			[70, 75, 84]
+	[]	[71, 73]	[77]	[86, 87]
+						  [85]
+
+Order 5: [C, N, G, A, H, E, K, Q, M, F, W, L, T, Z, D, P, R, X, Y, S]
+all nodes other than the root must have a minimum of 2 keys
+the first 4 letter get into the root
+
+			[A, C, G, N]
+
+			[A, C, G, (H), N]
+
+				[G]
+			[A, C]	[H, N]
+
+				[G]
+			[A, C, (E)]	[H, N]
+
+				[G]
+			[A, C, E]	[H, (K), N]
+
+				[G]
+			[A, C, E]	[H, K, N, (Q)]
+			
+				[G]
+			[A, C, E]	[H, K, (M), N, Q]
+			
+				[G, M]
+		[A, C, E]	[H, K]	[N, Q]	
+
+				[G, M]
+	[A, C, E, (F)]	[H, K]	[N, Q]
+
+				[G, M]
+	[A, C, E, F]	[H, K]	[N, Q, (W)]
+
+				[G, M]
+	[A, C, E, F]	[H, K, (L)]	[N, Q, W]
+	
+				[G, M]
+	[A, C, E, F]	[H, K, L]	[N, Q, (T), W]
+	
+				[G, M]
+	[A, C, E, F]	[H, K, L]	[N, Q, T, W, (Z)]
+
+				[G, M, T]
+	[A, C, E, F]	[H, K, L]	[N, Q]	[W, Z]
+	
+				[G, M, T]
+	[A, C, (D), E, F]	[H, K, L]	[N, Q]	[W, Z]
+	
+				[D, G, M, T]
+	[A, C]	[E, F]	[H, K, L]	[N, Q]	[W, Z]
+	
+				[D, G, M, T]
+	[A, C]	[E, F]	[H, K, L]	[N, (P), Q]	[W, Z]
+
+				[D, G, M, T]
+	[A, C]	[E, F]	[H, K, L]	[N, P, Q, (R)]	[W, Z]
+
+				[D, G, M, T]
+	[A, C]	[E, F]	[H, K, L]	[N, P, Q, R]	[W, (X), Z]
+
+				[D, G, M, T]
+	[A, C]	[E, F]	[H, K, L]	[N, P, Q, R]	[W, X, (Y), Z]
+
+				[D, G, M, T]
+	[A, C]	[E, F]	[H, K, L]	[N, P, Q, R, (S)]	[W, X, Y, Z]
+
+				[D, G, M, Q, T]
+	[A, C]	[E, F]	[H, K, L]	[N, P]	[R, S]	[W, X, Y, Z]
+
+				[M]
+		[D, G]						[Q, T]
+[A, C]	[E, F]	[H, K, L]	[N, P]	[R, S]	[W, X, Y, Z]
+
+				[M]
+		[D, G]						[Q, T]
+[A, C]	[E, F]	[M, K, L]	[N, P]	[R, S]	[W, X, Y, Z]
+
+typedef Node{
+	int count;
+	ItemType key[3];
+	Branchj[4];
+}
+
+Order 4(max: 4 pointers and 3 keys; min: 2 pointers and 1 key) successor
+Insert: 5, 3, 21, 9, 1, 13, 2, 7, 10, 12, 4, 8
+Delete: 2, 21, 10, 3, 4
+
+[3, 5, (9), 21]
+	
+[9]
+[3, 5]	[21]
+
+[9]
+[(1), 3, 5]	[21]
+
+[9]
+[1, 3, 5]	[(13), 21]
+
+[9]
+[1, (2), 3, 5]	[13, 21]
+
+[3, 9]
+[1, 2]	[5]	[13, 21]
+
+[3, 9]
+[1, 2]	[5, (7)]	[13, 21]
+
+[3, 9]
+[1, 2]	[5, 7]	[(10), 13, 21]
+
+[3, 9]
+[1, 2]	[5, 7]	[10, (12), 13, 21]
+
+[3, 9, 13]
+[1, 2]	[5, 7]	[10, 12]	[21]
+
+[3, 9, 13]
+[1, 2]	[(4), 5, 7]	[10, 12]	[21]
+
+[3, 9, 13]
+[1, 2]	[4, 5, 7, (8)]	[10, 12]	[21]
+
+[3, 7, 9, 13]
+[1, 2]	[4, 5]	[8]	[10, 12]	[21]
+
+[3, 7, 9, 13]
+[1, 2]	[4, 5]	[8]	[10, 12]	[21]
+
+[9]
+[3, 7]				[13]
+[1, 2]	[4, 5]	[8]	[10, 12]	[21]
+
+[9]
+[3, 7]					[13]
+[1, (2)]	[4, 5]	[8]	[10, 12]	[21]
+
+[9]
+[3, 7]			[13]
+[1]	[4, 5]	[8]	[10, 12]	[(21)]
+
+[9]
+[3, 7]			[13]
+[1]	[4, 5]	[8]	[10, 12]	[]
+
+[9]
+[3, 7]			[12]
+[1]	[4, 5]	[8]	[10]	[13]
+
+[9]
+[3, 7]			[12]
+[1]	[4, 5]	[8]	[(10)]	[13]
+
+[9]
+[3, 7]			[12]
+[1]	[4, 5]	[8]	[]	[13]
+
+[9]
+[3, 7]			[]
+[1]	[4, 5]	[8]	[12, 13]
+
+[3, 7, 9]
+[1]	[4, 5]	[8]	[12, 13]
+
+[(3), 7, 9]
+[1]	[4, 5]	[8]	[12, 13]
+
+[4, 7, 9]
+[1]	[5]	[8]	[12, 13]
+
+[(4), 7, 9]
+[1]	[5]	[8]	[12, 13]
+
+[5, 7, 9]
+[1]	[]	[8]	[12, 13]
+
+[7, 9]
+[1, 5]	[8]	[12, 13]
+
+delete:
+1) just delete (use predessor or the successor)
+2) delete and underflow, try to borrow (key to pre child and first of next child to the key)
+3) delete and underflow, if cannot borrow, (merge down, key to child)
+4) ..., borrow should bring child
+
+[9]
+[3, 7]				[13]
+[1, 2]	[4, 5]	[8]	[10, 12]	[21]
+delete 2
+[9]
+[3, 7]			[13]
+[1]	[4, 5]	[8]	[10, 12]	[21]
+
+[9]
+[3, 7]				[13]
+[1, 2]	[4, 5]	[8]	[10, 12]	[21]
+delete 21
+[9]
+[3, 7]				[12]
+[1, 2]	[4, 5]	[8]	[10]	[13]
+
+[9]
+[3, 7]				[12]
+[1, 2]	[4, 5]	[8]	[10]	[13]
+delete 10
+[9]
+[3, 7]				[12]
+[1, 2]	[4, 5]	[8]	[]	[13]
+
+[9]
+[3, 7]				[]
+[1, 2]	[4, 5]	[8]	[12, 13]
+
+[7]
+[3]				[9]
+[1, 2]	[4, 5]	[8]	[12, 13]
+
+a node have n keys should have n+1 children
+
+B-tree of order 3
+[12]
+[4, 8]			[20]
+[2] [6]	[10]	[15]	[40]
+delete 40
+[12]
+[4, 8]			[20]
+[2] [6]	[10]	[15]	[]
+
+[12]
+[4, 8]			[]
+[2] [6]	[10]	[15, 20]
+
+[8]
+[4]		[12]
+[2] [6]	[10]	[15, 20]
+
+Order 5 delete M successor min: 2 key
+[M]
+[D, G]						[Q, T]
+[A, C]	[E, F]	[H, K, L]	[N, P]	[R, S]	[W, X, Y, Z]
+
+[N]
+[D, G]						[Q, T]
+[A, C]	[E, F]	[H, K, L]	[P]	[R, S]	[W, X, Y, Z]
+
+[N]
+[D, G]						[T]
+[A, C]	[E, F]	[H, K, L]	[P, Q, R, S]	[W, X, Y, Z]
+
+[D, G, N, T]
+[A, C]	[E, F]	[H, K, L]	[P, Q, R, S]	[W, X, Y, Z]
+
+recursive
+linked list
+trees
+sample:
+Recrusive algothm to count nodes in a single linked list. If list empty, return 0.
+Node{
+	int val;
+	Node next;
+}
+Int count(root){
+	if (root == null) return null;
+	return 1 + count(root.next);
+}
+
+Node{
+	int val;
+	Node left;
+	Node right;
+}
+bool isHeap(node){
+	if ((left != null) && (!isHeap(left)) return false;
+	if ((right != null)) && (!isHeap(right))) return false;
+	if ((left != null) && (val < left.val)) return false;
+	if ((right != null) && (val < right.val)) return false;
+	return true;
+}
