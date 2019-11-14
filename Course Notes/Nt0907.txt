@@ -1,0 +1,245 @@
+recursive algorithm that counts the number of nudes in a single linked list
+
+double linked list
+(prev, elem, next) node
+traverse from tail to head
+Void rtrav(Node *tmp)
+
+insertBefore
+Void insertB( r, n)
+{
+if (r.prev == null)
+{
+head = n;// ***
+n.next = r;
+r.prev = n;
+n.prev = null;
+}
+else
+{
+r.prev.next = n;// ***
+n.prev = r.prev;
+n.next = r;
+r.prev = n;
+}
+}
+
+insertAfter
+Void insertA(b, n)
+{
+if (b.next == null)
+{
+tail = n;
+n.prev = b;
+b.next = n;
+n.next = null;
+}
+else
+{
+b.next.prev = n;
+n.prev = b;
+n,next = b.next;
+b.next= n;
+}
+}
+
+delete
+Void delete(d)
+{
+if (d.prev == null)
+{
+head = d.next;
+if (head == null)
+{
+tail = null;
+}
+else
+{
+head.prev = null;
+}
+}
+else if (d.next == null)
+{
+tail = d.prev;
+d.prev.next = null;
+}
+else
+{
+d.prev.next = d.next;
+d.next.prev = d.prev;
+}
+}
+
+Given a double linked list, assume the number of nodes is odd. Recurisive algotithm to find the middle.
+Node middle(tmp1, tmp2)
+{
+if (tmp1 == tmp2) return tmp1;
+return middle(tmp1.next, tmp2.prev);
+}
+
+Give a single linked list, assume the number of nodes is odd. Recurisive algotithm to find the middle.
+Node middle(tmp1, tmp2)
+{
+if (tmp2 == null) return tmp1;
+return middle(tmp1.next, tmp2.next.next);
+}
+
+Judge Circle Linked List
+bool messed(tmp1, tmp2)
+{
+if (tmp1 == tmp2) return true;
+if (tmp2 == null) return false;
+if (tmp2.next == null) return false;
+return messed(tmp1.next, tmp2.next.next);
+}
+
+stack
+(push, pop) top
+Array-based Stack
+int size()
+{
+return top + 1;
+}
+T pop()
+{
+if empty()
+{
+throw StackEmpty;
+}
+else
+{
+top--;
+return S[top + 1];
+}
+}
+Void push(t)
+{
+if full()
+{
+throw StackFull;
+}
+else
+{
+top++;
+S[top] = t;
+}
+{
+
+LinkedList-based Stack
+
+queue(circular list, not messed single linked list)
+(head) dequeue (tail) enqueue
+
+sorting
+selection sort:find the smallest and swap to the front of the rest
+Void selectsort(int *a, int len)
+{
+int i, j, smaillIndex, tmp;
+for (i = 0; i < len; i++)
+{
+smaillIndex = i;
+for (j = i + 1; j < len; j++)
+{
+if (a[j] < a[smallIndex])
+{
+smallIndex = j;
+}
+}
+}
+if (smallIndex != i)
+{
+tmp = a[i];
+a[i] = a[smallIndex];
+a[smallIndex] = tmp;
+}
+}
+
+linkedList-based ------ using while loop
+Void selectSort(linklist *l)
+{
+link *current1;
+link *current2;
+link *min;
+int tmp;
+current = li.first;
+while (current != null)
+{
+min  = current;
+current2 = current.next;
+while (current2 != null)
+{
+if (min.data < current.data)
+{
+min = current2;
+}
+}
+current2 = current2.next;
+tmp = current.data;
+current.data = min.data;
+min.data = tmp;
+current = current.next;
+}
+}
+
+Homework: swap node
+
+Searching
+BInary Search
+int binsearch(A, n, v)
+{
+int i, h, mid;
+while (i <= h)
+{
+mid = (l + h) / 2;
+if (A[mid] == v) 
+{
+return mid;
+}
+else if (A[mid] > v)
+{
+h = mid - 1;
+}
+else
+{
+i = mid + 1
+}
+}
+return -1;
+}
+
+recursival
+int rbinsearch(A, l, h, v)
+{
+if (l > h) return -1;
+mid = (l + h) / 2;
+if (A[mid] == v)
+{
+return mid;
+}
+else if (A[mid] >v)
+{
+return rbinsearch(A, l, mid - 1, v);
+}
+else
+{
+return rbinsearch(A, mid + 1, h, v);
+]
+}
+
+tree
+root
+internal node and external node
+ancestor of a node(parent, etc.)
+depth of a node
+height of a tree
+descendant of a node(child, etc.)
+siblings: have same parent;
+subtree
+
+binary tree
+at most two children (exactly two childrenproper binary tree)
+ordered pair, left child and right child
+full binary tree: all have two children
+complete ~: filled except last level
+perfect ~: filled all
+a complete binary tree of height h has 2^h - 1 internal nodes and 2^h leaves; Also, a binary tree with n nodes has height at least log2(n).

@@ -1,0 +1,72 @@
+heap sort A[0] end in 1
+merge sort left.length >= right.length
+make a heap O(n)
+only binary tree have in-order traverse
+
+void reverseTrav(node n){
+	if (n == null) return;
+	reverseTrav(n.next);
+	print n.val;
+}
+
+Graphs
+A graph is a pair(V, E) where:
+V is a set of nodes, called vertices
+E is a collection of pairs of vertices, called edges
+
+Directed edge
+ordered pair of vetices (u, v) u->v
+
+Degree of vertex: number of edges involved
+
+Length of a path is its number of edges
+
+Traverse a vertex or edge more than once make non-simple
+
+Strong connected: always can find a path between any two vertex
+
+Digraph: all paths are directed
+
+Computer representatons:
+Adjacency matrix:
+[[0, 1, 0, 1, 1]
+[1, 1, 0, 0, 0]
+[0, 0, 1, 1, 0]
+[1, 0, 1, 0 ,1]
+[1, 0, 1, 1, 0]]
+(ver, hex) -> vertex, vertex
+Incident matrix:
+[[-1, 0, 0, 1 ,1, 0]
+[0, 1, 1, -1, 0, 0]
+[1, 0, -1, 0, 0, 0]
+[1, 0, -1, 0, 1, -1]]
+(ver, hex) -> vertex, edge
+-1 for incident-out
+Adjacency Lists:
+L[1]->[]
+L[2]->[1, 3, 4, 5]
+L[3]->[3, 2]
+L[4]->[5]
+L[5]->[2, 3, 4]
+linked list
+head is vertex, followers are connected vertexs
+
+A->NULL
+B->C->F->NULL
+C->A->C->NULL
+D->E->NULL
+E->D->NULL
+F->A->NULL
+
+A->B->C->NULL
+B->A->D->NULL
+C->A->D->NULL
+D->B->C->NULL
+
+Draw a graph considering as a undirected graph at first
+
+Degree, In-degree, Out-degree
+
+Graph traversals
+DFS & BFS
+(Depth, Breadth)

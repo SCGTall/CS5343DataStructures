@@ -1,0 +1,20 @@
+input -> algorithm -> output
+Running Time(Worst: easier to analyze; crucial to applications)
+pseudocode(More structured than English prose, Less detailed than a program)
+Constant, Logarithmic, Linear, N-Log-N, Quadratic, Cubic, Exponential
+
+Recursion
+1. 2. 3.
+some elegant
+judge: logN run time
+GCD
+Int gcd(int x, int y){
+	if (y == 0){
+		return x;
+	}
+	else{
+		return gcd(y, x%y);
+	}
+}
+array remove
+single linked list:element, next
